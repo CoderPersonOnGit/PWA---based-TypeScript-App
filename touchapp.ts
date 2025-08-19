@@ -1,4 +1,4 @@
-const app = document.getElementById('app');
+const app = document.getElementById('app') as HTMLElement;
 
 const header = document.createElement('header')
 header.textContent = "My TypeScript App";
@@ -40,7 +40,7 @@ app?.appendChild(main);
 const form = document.createElement('form');
 form.style.marginTop = '2rem';
 
-const input = document.createElement('input');
+const input = document.createElement('input') as HTMLInputElement;
 input.type = 'text';
 input.placeholder = "Enter something...";
 input.style.padding = '0.5rem';
