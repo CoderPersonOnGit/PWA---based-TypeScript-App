@@ -13,7 +13,7 @@ welcome.style.fontFamily = "Segoe UI";
 welcome.style.color = "#333";
 
 const main = document.createElement("main");
-main.style.padding = "2rem";
+main.style.padding = "1rem";
 main.style.maxWidth = "600px";
 main.style.margin = "0 auto";
 main.style.padding = "1rem";
@@ -38,7 +38,7 @@ app?.appendChild(header);
 app?.appendChild(main);
 
 const form = document.createElement('form');
-form.style.marginTop = '2rem';
+form.style.marginTop = '1rem';
 
 const input = document.createElement('input') as HTMLInputElement;
 input.type = 'text';
@@ -63,25 +63,36 @@ output.style.fontFamily = "Segoe UI, sans-serif";
 output.style.color = "#555";
 
 //form submission
+const entries: string[] = JSON.parse(localStorage.getItem("entries") || "[]");
 form.onsubmit = (e) => {
   e.preventDefault();
   const value = input.value.trim();
-  if (value) {
+
+  if (!value) {
+    alert('Please enter something')
+    return;
+  }
+    if (entries.includes(value)) {
+    alert("You've already entered that!");
+    return;
+  }
+
     const result = document.createElement("p");
     result.textContent = `You entered: ${value}`;
     output.appendChild(result);
+    
+    entries.push(value);
+    localStorage.setItem('entries' , JSON.stringify(entries));
+
     input.value = ""; // Clear input
   }
-};
-
+  
 //form assembly
 form.appendChild(input);
 form.appendChild(submit);
 main.appendChild(form);
 main.appendChild(output);
 
-//storage 
-const entries: string[] = JSON.parse(localStorage.getItem("entries") || "[]");
 
 entries.forEach(entry => {
   const result = document.createElement("p");
@@ -98,3 +109,8 @@ clearBTN.onclick = () => {
     localStorage.removeItem('entries');
 };
 main.appendChild(clearBTN);
+
+//offline status
+window.addEventListener('offline' , () => {
+  alert('Offline: Changes may not be saved');
+});
