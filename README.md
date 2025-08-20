@@ -4,7 +4,7 @@ A lightweight Progressive Web App built with TypeScript and JavaScript APIs. Thi
 
 ---
 
-## 🚀 Features
+## Features
 
 - Built entirely with TypeScript
 -  DOM manipulation (no static HTML layout)
